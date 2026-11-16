@@ -71,12 +71,12 @@
       <section class="stats-grid" aria-label="학습 요약">
         <article class="stat-card">
           <div class="stat-top"><span>이번 주 수업</span><span class="stat-icon purple">▦</span></div>
-          <strong class="stat-number">--<small> 회</small></strong>
+          <strong class="stat-number"><span id="class-count">0</span><small> 회</small></strong>
           <p>시간표 등록 후 확인할 수 있습니다.</p>
         </article>
         <article class="stat-card">
           <div class="stat-top"><span>진행 중인 과제</span><span class="stat-icon orange">☷</span></div>
-          <strong class="stat-number">--<small> 개</small></strong>
+          <strong class="stat-number"><span id="task-count">0</span><small> 개</small></strong>
           <p>과제를 등록하면 여기에 표시됩니다.</p>
         </article>
         <article class="stat-card">
@@ -95,25 +95,45 @@
         <article class="panel timetable-panel" id="timetable">
           <div class="panel-heading">
             <div><p class="eyebrow">CLASS SCHEDULE</p><h2>오늘의 시간표</h2></div>
-            <a class="text-link" href="#timetable">전체 보기 <span>→</span></a>
+            <span class="panel-tag">WEEK 3</span>
           </div>
-          <div class="empty-state">
-            <div class="empty-illustration">▦</div>
-            <strong>아직 등록된 수업이 없습니다.</strong>
-            <p>시간표를 등록하면 오늘의 수업을 이곳에서 확인할 수 있습니다.</p>
-          </div>
+          <form id="class-form" class="entry-form" autocomplete="off">
+            <div class="form-row">
+              <label>과목명 <input name="subject" required maxlength="70" placeholder="예: 웹프로그래밍"></label>
+              <label>요일 <select name="day" required>
+                <option value="1">월요일</option><option value="2">화요일</option>
+                <option value="3">수요일</option><option value="4">목요일</option>
+                <option value="5">금요일</option><option value="6">토요일</option>
+                <option value="0">일요일</option>
+              </select></label>
+            </div>
+            <div class="form-row">
+              <label>시작 시간 <input type="time" name="start" required value="09:00"></label>
+              <label>종료 시간 <input type="time" name="end" required value="10:00"></label>
+            </div>
+            <button class="primary-button" type="submit">+ 수업 추가</button>
+            <p class="form-feedback" id="class-feedback" role="status" aria-live="polite"></p>
+          </form>
+          <h3 class="list-heading">등록한 시간표</h3>
+          <ul class="item-list" id="class-list"><li class="list-empty">아직 등록된 수업이 없습니다.</li></ul>
         </article>
 
         <article class="panel assignments-panel" id="assignments">
           <div class="panel-heading">
             <div><p class="eyebrow">TASK MANAGEMENT</p><h2>과제 및 마감일</h2></div>
-            <a class="text-link" href="#assignments">전체 보기 <span>→</span></a>
+            <span class="panel-tag">WEEK 3</span>
           </div>
-          <div class="empty-state compact-empty">
-            <div class="empty-illustration orange-bg">✓</div>
-            <strong>등록된 과제가 없습니다.</strong>
-            <p>과제와 제출 기한을 한곳에서 관리해 보세요.</p>
-          </div>
+          <form id="task-form" class="entry-form" autocomplete="off">
+            <label>과제명 <input name="title" required maxlength="100" placeholder="예: JavaScript 과제"></label>
+            <div class="form-row">
+              <label>과목명 <input name="subject" required maxlength="70" placeholder="예: 웹프로그래밍"></label>
+              <label>제출 마감일 <input name="due" type="date" required></label>
+            </div>
+            <button class="primary-button" type="submit">+ 과제 추가</button>
+            <p class="form-feedback" id="task-feedback" role="status" aria-live="polite"></p>
+          </form>
+          <h3 class="list-heading">과제 목록</h3>
+          <ul class="item-list" id="task-list"><li class="list-empty">등록된 과제가 없습니다.</li></ul>
         </article>
 
         <article class="panel study-panel" id="study">
@@ -159,6 +179,9 @@
         </article>
       </section>
 
+      <section id="settings" class="settings-note" aria-label="설정 안내">
+        <strong>설정</strong> · 계정 및 데이터 관리 기능은 이후 개발 단계에서 구현할 예정입니다.
+      </section>
       <footer class="page-footer">
         <span>© 2026 SeoulTech Student Hub</span>
         <span>Built for a smarter campus life.</span>
