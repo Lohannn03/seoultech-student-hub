@@ -64,3 +64,14 @@
   .item-row { align-items: flex-start; }
   .item-actions { flex-direction: column; }
 }
+
+/* Week 4: Study Tracker & external weather data */
+.weather-widget { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-top: 15px; padding: 13px; border: 1px solid #e8eaf2; border-radius: 11px; background: #fafbfe; }
+.weather-widget > div:first-child { display: grid; gap: 2px; }
+.weather-widget > div:first-child strong { font-size: 11px; }
+.weather-widget small { color: #9b9faf; font-size: 9px; }
+.weather-data { display: grid; gap: 2px; }
+.weather-data strong { font-size: 14px; }
+.weather-data span { color: #9298aa; font-size: 10px; }
+.storage-notice { margin-top: 10px; color: #b34e50; font-size: 11px; }
+#week-bars span { transition: height .2s; }
