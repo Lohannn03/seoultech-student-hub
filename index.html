@@ -81,7 +81,7 @@
         </article>
         <article class="stat-card">
           <div class="stat-top"><span>이번 주 학습 시간</span><span class="stat-icon blue">◷</span></div>
-          <strong class="stat-number">--<small> 시간</small></strong>
+          <strong class="stat-number"><span id="study-hours">0</span><small> 시간</small></strong>
           <p>학습 기록을 시작해 보세요.</p>
         </article>
         <article class="stat-card">
@@ -95,7 +95,7 @@
         <article class="panel timetable-panel" id="timetable">
           <div class="panel-heading">
             <div><p class="eyebrow">CLASS SCHEDULE</p><h2>오늘의 시간표</h2></div>
-            <span class="panel-tag">WEEK 3</span>
+            <span class="panel-tag">WEEK 4</span>
           </div>
           <form id="class-form" class="entry-form" autocomplete="off">
             <div class="form-row">
@@ -121,7 +121,7 @@
         <article class="panel assignments-panel" id="assignments">
           <div class="panel-heading">
             <div><p class="eyebrow">TASK MANAGEMENT</p><h2>과제 및 마감일</h2></div>
-            <span class="panel-tag">WEEK 3</span>
+            <span class="panel-tag">WEEK 4</span>
           </div>
           <form id="task-form" class="entry-form" autocomplete="off">
             <label>과제명 <input name="title" required maxlength="100" placeholder="예: JavaScript 과제"></label>
@@ -141,16 +141,27 @@
             <div><p class="eyebrow">STUDY TRACKER</p><h2>학습 기록</h2></div>
             <span class="panel-tag">WEEKLY</span>
           </div>
+          <form id="study-form" class="entry-form" autocomplete="off">
+            <div class="form-row">
+              <label>학습 과목 <input name="subject" maxlength="70" required placeholder="예: 웹프로그래밍"></label>
+              <label>학습 날짜 <input name="date" type="date" required></label>
+            </div>
+            <label>학습 시간 (분) <input name="minutes" type="number" min="1" max="1440" step="1" required placeholder="예: 60"></label>
+            <button class="primary-button" type="submit">+ 학습 기록 추가</button>
+            <p class="form-feedback" id="study-feedback" role="status" aria-live="polite"></p>
+          </form>
           <div class="study-placeholder">
-            <div class="study-ring"><span>--<small>시간</small></span></div>
+            <div class="study-ring"><span id="weekly-study">0<small>시간</small></span></div>
             <div><strong>꾸준한 학습 습관 만들기</strong><p>학습 시간을 기록하면 주간 통계를 확인할 수 있습니다.</p></div>
           </div>
-          <div class="week-bars" aria-label="주간 학습 시간 미기록">
+          <div class="week-bars" id="week-bars" aria-label="이번 주 요일별 학습 시간">
             <div><span></span><small>월</small></div><div><span></span><small>화</small></div>
             <div><span></span><small>수</small></div><div><span></span><small>목</small></div>
             <div><span></span><small>금</small></div><div><span></span><small>토</small></div>
             <div><span></span><small>일</small></div>
           </div>
+          <h3 class="list-heading">학습 기록 목록</h3>
+          <ul class="item-list" id="study-list"><li class="list-empty">등록된 학습 기록이 없습니다.</li></ul>
         </article>
 
         <article class="panel resources-panel" id="notes">
@@ -170,6 +181,11 @@
           <div class="panel-heading"><div><p class="eyebrow">CAMPUS LIFE</p><h2>캠퍼스 정보</h2></div></div>
           <p class="muted-copy">학교생활에 필요한 정보를 한곳에서 확인할 수 있도록 준비 중입니다.</p>
           <div class="campus-chips"><span>학교 공지</span><span>학사 일정</span><span>캠퍼스 안내</span></div>
+          <div class="weather-widget" aria-live="polite">
+            <div><strong>서울 현재 날씨</strong><small>Open-Meteo 공개 API · 서울 기준</small></div>
+            <div class="weather-data"><strong id="weather-value">조회 중...</strong><span id="weather-description">실시간 정보를 불러오고 있습니다.</span></div>
+            <button type="button" class="action-button" id="weather-refresh">날씨 새로고침</button>
+          </div>
         </article>
         <article class="panel project-panel" id="analytics">
           <div class="panel-heading"><div><p class="eyebrow">PROJECT OVERVIEW</p><h2>Student Hub</h2></div><span class="status-pill">DEVELOPING</span></div>
@@ -182,6 +198,7 @@
       <section id="settings" class="settings-note" aria-label="설정 안내">
         <strong>설정</strong> · 계정 및 데이터 관리 기능은 이후 개발 단계에서 구현할 예정입니다.
       </section>
+      <p id="storage-notice" class="storage-notice" role="status" aria-live="polite"></p>
       <footer class="page-footer">
         <span>© 2026 SeoulTech Student Hub</span>
         <span>Built for a smarter campus life.</span>
