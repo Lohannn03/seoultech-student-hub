@@ -1,8 +1,6 @@
 /**
- * SeoulTech Student Hub – Week 3
- * Vanilla JS + DOM manipulation + form events.
- * Data is stored in memory only for this milestone.
- * Persistence with Web Storage is planned for Week 4.
+ * SeoulTech Student Hub – Week 4
+ * DOM events, JSON/localStorage, study tracking and Open-Meteo Fetch API.
  */
 "use strict";
 
@@ -20,8 +18,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   const saved = loadState();
   const validText = value => typeof value === "string" && value.trim().length > 0;
-  const validDate = value => typeof value === "string" && /^\\d{4}-\\d{2}-\\d{2}$/.test(value) && !Number.isNaN(Date.parse(value + "T00:00:00"));
-  const classes = Array.isArray(saved.classes) ? saved.classes.filter(x => x && Number.isInteger(x.id) && validText(x.subject) && Number.isInteger(x.day) && x.day >= 0 && x.day <= 6 && /^\\d{2}:\\d{2}$/.test(x.start) && /^\\d{2}:\\d{2}$/.test(x.end) && x.start < x.end) : [];
+  const validDate = value => typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value) && !Number.isNaN(Date.parse(value + "T00:00:00"));
+  const classes = Array.isArray(saved.classes) ? saved.classes.filter(x => x && Number.isInteger(x.id) && validText(x.subject) && Number.isInteger(x.day) && x.day >= 0 && x.day <= 6 && /^\d{2}:\d{2}$/.test(x.start) && /^\d{2}:\d{2}$/.test(x.end) && x.start < x.end) : [];
   const tasks = Array.isArray(saved.tasks) ? saved.tasks.filter(x => x && Number.isInteger(x.id) && validText(x.title) && validText(x.subject) && validDate(x.due) && typeof x.done === "boolean") : [];
   const sessions = Array.isArray(saved.sessions) ? saved.sessions.filter(x => x && Number.isInteger(x.id) && validText(x.subject) && validDate(x.date) && Number.isInteger(x.minutes) && x.minutes >= 1 && x.minutes <= 1440) : [];
   let nextId = Math.max(0, ...[...classes,...tasks,...sessions].map(x => x.id)) + 1;
@@ -227,7 +225,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const end = localDateString(next);
     const weekly = sessions.filter(x => x.date >= start && x.date < end);
     const totalMinutes = weekly.reduce((sum,x) => sum+x.minutes,0);
-    const hours = (totalMinutes/60).toFixed(1).replace(/\\.0$/,"");
+    const hours = (totalMinutes/60).toFixed(1).replace(/\.0$/,"");
     document.querySelector("#study-hours").textContent = hours;
     document.querySelector("#weekly-study").replaceChildren(document.createTextNode(hours), make("small","","시간"));
     const days = Array.from({length:7},(_,index)=>{
